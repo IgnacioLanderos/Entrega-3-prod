@@ -26,6 +26,10 @@ def create_app():
 
         def to_dict(self):
             return json.loads(self.data)  # Convertir el JSON almacenado en el campo 'data' en un diccionario Python
+        
+    # Create the database tables if they do not exist
+    with app.app_context():
+        db.create_all()
 
     # Route to handle Pub/Sub push messages
     @app.route('/pubsub/push', methods=['POST'])
