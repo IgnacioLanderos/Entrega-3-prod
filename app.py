@@ -27,15 +27,6 @@ def create_app():
         def to_dict(self):
             return json.loads(self.data)  # Convertir el JSON almacenado en el campo 'data' en un diccionario Python
 
-    # Create the database tables and delete all existing data
-    with app.app_context():
-        # Eliminar todos los registros de la tabla Message
-        db.session.query(Message).delete()
-        db.session.commit()
-
-        # Crear las tablas en la base de datos
-        db.create_all()
-
     # Route to handle Pub/Sub push messages
     @app.route('/pubsub/push', methods=['POST'])
     def pubsub_push_handler():
